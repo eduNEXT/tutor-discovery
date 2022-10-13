@@ -1,4 +1,5 @@
 make migrate
+{% if not DISCOVERY_DB_PREVIOUS_PARTNERS %}
 
 # Development partners
 ./manage.py create_or_update_partner  \
@@ -24,3 +25,7 @@ make migrate
 
 ./manage.py refresh_course_metadata --partner_code=$DEFAULT_PARTNER_CODE
 ./manage.py update_index --disable-change-limit
+{% else %}
+./manage.py refresh_course_metadata
+./manage.py update_index --disable-change-limit
+{% endif %}
